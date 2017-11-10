@@ -1,0 +1,355 @@
+1 shift/reduce conflict
+
+error:  state 23: shift/reduce conflict (shift ELSE, reduce by rule 13)
+
+state 0:
+
+	START : . EXP 
+	START : .  (reduce by rule 1)
+
+	FALSE	shift 11
+	TRUE	shift 10
+	NOT	shift 9
+	LPAREN	shift 8
+	IF	shift 7
+	ATOMM	shift 6
+
+	EXP	goto 5
+	START	goto 26
+	TERM	goto 4
+	TERM2	goto 3
+	TERM3	goto 2
+	TERM2_1	goto 1
+
+	.	reduce by rule 1
+
+
+state 1:
+
+	TERM2 : TERM2_1 .  (reduce by rule 8)
+
+
+
+	.	reduce by rule 8
+
+
+state 2:
+
+	EXP : TERM3 .  (reduce by rule 12)
+	EXP : TERM3 . IFF EXP 
+	TERM3 : TERM3 . OR TERM2 
+
+	OR	shift 13
+	IFF	shift 12
+
+
+	.	reduce by rule 12
+
+
+state 3:
+
+	TERM2 : TERM2 . AND TERM2_1 
+	TERM3 : TERM2 .  (reduce by rule 10)
+
+	AND	shift 14
+
+
+	.	reduce by rule 10
+
+
+state 4:
+
+	TERM2_1 : TERM .  (reduce by rule 7)
+
+
+
+	.	reduce by rule 7
+
+
+state 5:
+
+	START : EXP .  (reduce by rule 0)
+
+
+
+	.	reduce by rule 0
+
+
+state 6:
+
+	TERM : ATOMM .  (reduce by rule 2)
+
+
+
+	.	reduce by rule 2
+
+
+state 7:
+
+	EXP : IF . TERM3 THEN EXP 
+	EXP : IF . TERM3 THEN EXP ELSE TERM3 
+
+	FALSE	shift 11
+	TRUE	shift 10
+	NOT	shift 9
+	LPAREN	shift 8
+	ATOMM	shift 6
+
+	TERM	goto 4
+	TERM2	goto 3
+	TERM3	goto 15
+	TERM2_1	goto 1
+
+	.	error
+
+
+state 8:
+
+	TERM : LPAREN . EXP RPAREN 
+
+	FALSE	shift 11
+	TRUE	shift 10
+	NOT	shift 9
+	LPAREN	shift 8
+	IF	shift 7
+	ATOMM	shift 6
+
+	EXP	goto 16
+	TERM	goto 4
+	TERM2	goto 3
+	TERM3	goto 2
+	TERM2_1	goto 1
+
+	.	error
+
+
+state 9:
+
+	TERM2_1 : NOT . TERM2_1 
+
+	FALSE	shift 11
+	TRUE	shift 10
+	NOT	shift 9
+	LPAREN	shift 8
+	ATOMM	shift 6
+
+	TERM	goto 4
+	TERM2_1	goto 17
+
+	.	error
+
+
+state 10:
+
+	TERM : TRUE .  (reduce by rule 3)
+
+
+
+	.	reduce by rule 3
+
+
+state 11:
+
+	TERM : FALSE .  (reduce by rule 4)
+
+
+
+	.	reduce by rule 4
+
+
+state 12:
+
+	EXP : TERM3 IFF . EXP 
+
+	FALSE	shift 11
+	TRUE	shift 10
+	NOT	shift 9
+	LPAREN	shift 8
+	IF	shift 7
+	ATOMM	shift 6
+
+	EXP	goto 18
+	TERM	goto 4
+	TERM2	goto 3
+	TERM3	goto 2
+	TERM2_1	goto 1
+
+	.	error
+
+
+state 13:
+
+	TERM3 : TERM3 OR . TERM2 
+
+	FALSE	shift 11
+	TRUE	shift 10
+	NOT	shift 9
+	LPAREN	shift 8
+	ATOMM	shift 6
+
+	TERM	goto 4
+	TERM2	goto 19
+	TERM2_1	goto 1
+
+	.	error
+
+
+state 14:
+
+	TERM2 : TERM2 AND . TERM2_1 
+
+	FALSE	shift 11
+	TRUE	shift 10
+	NOT	shift 9
+	LPAREN	shift 8
+	ATOMM	shift 6
+
+	TERM	goto 4
+	TERM2_1	goto 20
+
+	.	error
+
+
+state 15:
+
+	EXP : IF TERM3 . THEN EXP 
+	EXP : IF TERM3 . THEN EXP ELSE TERM3 
+	TERM3 : TERM3 . OR TERM2 
+
+	OR	shift 13
+	THEN	shift 21
+
+
+	.	error
+
+
+state 16:
+
+	TERM : LPAREN EXP . RPAREN 
+
+	RPAREN	shift 22
+
+
+	.	error
+
+
+state 17:
+
+	TERM2_1 : NOT TERM2_1 .  (reduce by rule 6)
+
+
+
+	.	reduce by rule 6
+
+
+state 18:
+
+	EXP : TERM3 IFF EXP .  (reduce by rule 14)
+
+
+
+	.	reduce by rule 14
+
+
+state 19:
+
+	TERM2 : TERM2 . AND TERM2_1 
+	TERM3 : TERM3 OR TERM2 .  (reduce by rule 11)
+
+	AND	shift 14
+
+
+	.	reduce by rule 11
+
+
+state 20:
+
+	TERM2 : TERM2 AND TERM2_1 .  (reduce by rule 9)
+
+
+
+	.	reduce by rule 9
+
+
+state 21:
+
+	EXP : IF TERM3 THEN . EXP 
+	EXP : IF TERM3 THEN . EXP ELSE TERM3 
+
+	FALSE	shift 11
+	TRUE	shift 10
+	NOT	shift 9
+	LPAREN	shift 8
+	IF	shift 7
+	ATOMM	shift 6
+
+	EXP	goto 23
+	TERM	goto 4
+	TERM2	goto 3
+	TERM3	goto 2
+	TERM2_1	goto 1
+
+	.	error
+
+
+state 22:
+
+	TERM : LPAREN EXP RPAREN .  (reduce by rule 5)
+
+
+
+	.	reduce by rule 5
+
+error:  state 23: shift/reduce conflict (shift ELSE, reduce by rule 13)
+
+state 23:
+
+	EXP : IF TERM3 THEN EXP .  (reduce by rule 13)
+	EXP : IF TERM3 THEN EXP . ELSE TERM3 
+
+	ELSE	shift 24
+
+
+	.	reduce by rule 13
+
+
+state 24:
+
+	EXP : IF TERM3 THEN EXP ELSE . TERM3 
+
+	FALSE	shift 11
+	TRUE	shift 10
+	NOT	shift 9
+	LPAREN	shift 8
+	ATOMM	shift 6
+
+	TERM	goto 4
+	TERM2	goto 3
+	TERM3	goto 25
+	TERM2_1	goto 1
+
+	.	error
+
+
+state 25:
+
+	EXP : IF TERM3 THEN EXP ELSE TERM3 .  (reduce by rule 15)
+	TERM3 : TERM3 . OR TERM2 
+
+	OR	shift 13
+
+
+	.	reduce by rule 15
+
+
+state 26:
+
+
+	SEMI	accept
+	EOF	accept
+
+
+	.	error
+
+28 of 87 action table entries left after compaction
+36 goto table entries

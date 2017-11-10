@@ -1,0 +1,18 @@
+a IFF b IFF c
+(c OR a OR a) AND (a OR b OR c)
+b AND NOT b
+(a OR b) AND (a OR NOT b)
+a IFF b
+p AND (q AND (NOT p))
+p AND (q AND ((NOT p) OR (NOT q)))
+(NOT p) AND ((p OR r) AND (p OR q))
+(p OR ((NOT q) OR NOT r)) AND (NOT p AND ((p OR r) AND (p OR q)))
+NOT a OR b
+TRUE
+FALSE
+TRUE AND FALSE
+TRUE OR FALSE
+TRUE AND a
+a AND FALSE
+a OR FALSE
+TRUE AND (FALSE OR a)

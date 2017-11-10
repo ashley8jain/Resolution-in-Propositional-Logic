@@ -1,0 +1,40 @@
+open Ast
+
+%%
+%header (functor PropLrValsFun (structure Token:TOKEN
+            					structure Ast:AST))
+%eop EOF SEMI
+
+
+%pos int
+
+
+
+%term  AND | FALSE | TRUE | SEMI | EOF | OR | NOT | LPAREN | RPAREN | IF | THEN | ELSE | IFF | ATOMM of string
+%nonterm EXP of Prop | START of Prop option | TERM of Prop | TERM2 of Prop | TERM3 of Prop | TERM2_1 of Prop
+
+
+%name Prop
+
+%keyword SEMI
+
+%noshift EOF
+%verbose
+%%
+
+  START : EXP (SOME EXP)
+        | (NONE)
+  TERM : ATOMM (ATOM(ATOMM))
+        | TRUE (TOP)
+        | FALSE (BOTTOM)
+        | LPAREN EXP RPAREN (EXP)
+  TERM2_1 : NOT TERM2_1 (NOT(TERM2_1))
+          | TERM (TERM)
+  TERM2 : TERM2_1 (TERM2_1)
+        | TERM2 AND TERM2_1  (AND(TERM2,TERM2_1))
+  TERM3 : TERM2 (TERM2)
+        | TERM3 OR TERM2  (OR(TERM3,TERM2))
+  EXP :TERM3   (TERM3)
+      | IF TERM3 THEN EXP (IMP(TERM3,EXP))
+      | TERM3 IFF EXP (IFF(TERM3,EXP))
+      | IF TERM3 THEN EXP ELSE TERM3 (ITE(TERM31,EXP,TERM32))
